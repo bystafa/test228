@@ -4,15 +4,14 @@
 </template>
 
 <script>
-import { watch } from '@vue/runtime-core';
 import EmulatorConfigurator from "./components/EmulatorConfigurator.vue";
 import EmulatorMain from "./components/EmulatorMain.vue";
 export default {
   components: {EmulatorMain, EmulatorConfigurator},
   data() {
     return {
-      floors: [1,2,3,4,5],
-      lifts: []
+      floors: [],
+      lifts: [],
     }
   },
   methods: {
@@ -24,24 +23,27 @@ export default {
         shaft: this.lifts.length + 1,
         floor: 1,
         status: 'free',
+        time: 0,
+        start: 0,
       };
       this.lifts.push(newLift)
     },
-    parseLocalStorage(str) {
+    parseLocalStorage(str, _default) {
       return localStorage.getItem(str) ?
         JSON.parse(localStorage.getItem(str)) :
-        [];
+        _default;
     }
   },
   mounted() {
-    this.lifts = parseLocalStorage('liftList');
-    this.floors = parseLocalStorage('floorsList');
+    this.lifts = this.parseLocalStorage('liftList', [{
+      shaft: this.lifts.length + 1,
+      floor: 1,
+      status: 'free',
+      time: 0,
+      start: 0,
+    }]);
+    this.floors = this.parseLocalStorage('floorsList', [1, 2, 3, 4, 5]);
   },
-  watch: {
-    floors() {
-      localStorage.setItem('floorsList', JSON.stringify(this.floors))
-    }
-  }
 }
 </script>
 

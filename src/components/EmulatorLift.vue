@@ -25,66 +25,62 @@ export default {
     lift: {
       type: Object,
       required: true,
-      default: {}
-    }
+      default: {},
+    },
   },
   computed: {
     movingStyle() {
       return {
-        transform: this.lift.status === 'moving' ? `translateY(${this.lift.moving_distance * 104}px)` : 'none',
-        transition: this.lift.status === 'moving' ?  `transform ${Math.abs(this.lift.moving_distance)}s ease-in-out` : 'none',
-        bottom: `${(this.lift.floor - 1) * 104}px`
+        transform: this.lift.status === 'moving' ? `translateY(${(this.lift.floor - this.lift.floor_to_move) * 104}px)` : 'none',
+        transition: this.lift.status === 'moving' ?  `transform ${Math.abs((this.lift.floor - this.lift.floor_to_move))}s ease-in-out` : 'none',
+        bottom: `${this.lift.time ? (this.lift.floor - 1) * 104 + this.lift.time : (this.lift.floor - 1) * 104}px`,
       }
-    }
-  },
-  watch: {
+    },
   }
 }
 </script>
 
 <style scoped>
-.lift {
-  width: 50px;
-  height: 85px;
-  margin: 15px 20px 0 20px;
-  background-color: grey;
-}
-
-.lift__container {
-  display: flex;
-  justify-content: center;
-  background-color: #242424;
-  border-radius: 10px;
-  padding: 0 5px;
-  margin: 5px;
-  height: 20px;
-}
-
-.lift__target-floor {
-  font-size: 12px;
-}
-
-.lift__direction {
-  width: 12px;
-  height: 12px;
-}
-
-@keyframes pulse {
-  50% {
-    opacity: 0;
+  .lift {
+    width: 50px;
+    height: 85px;
+    margin: 15px 20px 0 20px;
+    background-color: grey;
   }
-}
 
-@-webkit-keyframes pulse {
-  50% {
-    opacity: 0;
+  .lift__container {
+    display: flex;
+    justify-content: center;
+    background-color: #242424;
+    border-radius: 10px;
+    padding: 0 5px;
+    margin: 5px;
+    height: 20px;
   }
-}
 
-.waiting {
-  animation: pulse 1s linear infinite;
-  -webkit-animation: pulse 1s linear infinite;
-}
+  .lift__target-floor {
+    font-size: 12px;
+  }
 
+  .lift__direction {
+    width: 12px;
+    height: 12px;
+  }
 
+  @keyframes pulse {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @-webkit-keyframes pulse {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  .waiting {
+    animation: pulse 1s linear infinite;
+    -webkit-animation: pulse 1s linear infinite;
+  }
 </style>

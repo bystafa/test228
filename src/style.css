@@ -20,5 +20,23 @@
     color: #ffffff;
     background-color: #ffffff;
   }
+  
+}
 
+button + button {
+  margin-left: 10px;
+}
+
+button {
+  padding: 5px 0;
+  border: 1px solid #FFFFFF;
+  font-size: 14px;
+  background-color:#5242e3;
+  border-radius: 5px;
+  width: 100px;
+}
+button:hover {
+  opacity: .8;
+  cursor: pointer;
+  transform: scale(1.1);
 }

@@ -9,11 +9,10 @@
 
 <script>
 export default {
-  name: "EmulatorConfigurator",
+  name: 'EmulatorConfigurator',
   emits: ['add-lift','add-floor']
 }
 </script>
 
 <style scoped>
-
 </style>
